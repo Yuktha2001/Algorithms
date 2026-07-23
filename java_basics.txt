@@ -1,0 +1,366 @@
+JAVA BASICS
+JVM · JDK · JRE · Data Types · Variables · Literals · Conditionals
+A Complete Beginner's Reference
+
+CONTENTS
+1. JVM, JDK & JRE - The Java ecosystem explained
+2. How Java Code Runs - Compile -> bytecode -> execute
+3. Data Types - Primitive & reference types
+4. Variables - Local, instance, static, final
+5. Literals - Integer, float, char, String, boolean
+6. Type Casting - Widening and narrowing conversions
+7. Conditional Statements - if/else, switch, ternary
+8. Operators - Comparison & logical operators
+9. Quick Reference - Cheat-sheet summary
+
+
+===============================================================
+1. JVM, JDK & JRE - THE JAVA ECOSYSTEM
+===============================================================
+
+Java programs are written, compiled, and executed through a layered
+toolchain. Understanding these three components is essential before
+writing a single line of code.
+
+JDK - Java Development Kit
+  The complete developer toolkit.
+  Contains: javac compiler, javadoc, jar tool, debugger, and the JRE.
+  Use it to: write, compile, debug, and package Java programs.
+
+JRE - Java Runtime Environment
+  Everything needed to run compiled Java.
+  Contains: JVM + core class libraries (java.lang, java.util, etc).
+  Use it to: run .class bytecode files. No compiler included.
+
+JVM - Java Virtual Machine
+  The heart of Java's "write once, run anywhere" promise.
+  Translates platform-independent bytecode into native machine code.
+  Key parts: Class Loader, Memory Areas (Heap/Stack), Execution Engine.
+
+Platform Independence
+  Your .java source compiles once to .class bytecode.
+  Any OS with a JVM can run that .class file unchanged.
+  The JVM handles OS-specific translation internally.
+
+Containment Relationship
+  JDK (outermost - for developers)
+    JRE (for end-users who only run Java)
+      JVM (executes bytecode on any OS)
+        Class Loader -> Memory Areas -> Execution Engine
+
+
+===============================================================
+2. HOW JAVA CODE RUNS
+===============================================================
+
+Java uses a two-step process: first compile to bytecode, then
+interpret/JIT-compile to machine code at runtime.
+
+Step 1 - Write
+  Hello.java
+  You write Java source code in a plain text file with a .java extension.
+
+Step 2 - Compile
+  javac Hello.java
+  The javac compiler translates source code into platform-independent
+  bytecode.
+
+Step 3 - Bytecode
+  Hello.class
+  The .class file contains bytecode - not machine code. It is
+  OS-independent.
+
+Step 4 - Execute
+  java Hello
+  The JVM reads the .class file, loads it, verifies it, and executes it.
+
+JIT Compilation
+  The JVM uses Just-In-Time (JIT) compilation to speed things up.
+  Frequently-run code ("hot paths") is compiled directly to native
+  machine code at runtime, dramatically improving performance over
+  pure interpretation.
+
+
+===============================================================
+3. DATA TYPES
+===============================================================
+
+Java is a strongly-typed language - every variable must be declared
+with a specific type. There are two categories: primitive types
+(stored by value) and reference types (stored by reference).
+
+Primitive Types (8 total)
+  Type      Size     Range / Notes                              Example
+  byte      8-bit    -128 to 127                                 byte b = 100;
+  short     16-bit   -32,768 to 32,767                            short s = 1000;
+  int       32-bit   -2,147,483,648 to 2,147,483,647 (most common) int n = 42;
+  long      64-bit   Very large integers - append L suffix       long l = 99L;
+  float     32-bit   Decimal numbers - append f suffix           float f = 3.14f;
+  double    64-bit   More precise decimals - default for decimals double d = 3.14;
+  char      16-bit   Single Unicode character                    char c = 'A';
+  boolean   1-bit    true or false only                           boolean ok = true;
+
+Reference Types
+  Reference types store a memory address (reference) pointing to
+  data on the heap, not the value itself.
+
+  String
+    Sequence of characters.
+      String name = "Ravi";
+    Immutable - every modification creates a new object.
+
+  Arrays
+    Fixed-size collection of same type.
+      int[] nums = {1, 2, 3};
+    Index starts at 0. Length fixed at creation.
+
+  Classes / Objects
+    Custom types you define.
+      Student s = new Student();
+    Blueprint (class) creates instances (objects).
+
+  Interfaces
+    Contracts that classes implement.
+      List list = new ArrayList<>();
+    Enables polymorphism and abstraction.
+
+
+===============================================================
+4. VARIABLES
+===============================================================
+
+A variable is a named container that holds a value. In Java every
+variable has a data type, a name, and an optional initial value.
+
+Syntax
+  dataType variableName = value; // declaration + initialisation
+
+  int age = 25;
+  String name = "Ravi";
+  double price = 99.99;
+  boolean flag = true;
+  char grade = 'A';
+
+Three Kinds of Variables
+  Kind      Declared in                 Scope           Default value
+  Local     Inside a method             Method only     None - must initialise
+  Instance  Class body, outside methods Entire object   0 / null / false
+  Static    Class body with 'static'    Entire class    0 / null / false
+                                        (shared)
+
+The final Keyword
+  final int MAX_SIZE = 100; // constant - cannot be changed later
+  // MAX_SIZE = 200; // ERROR: cannot assign a value to final variable
+  // Convention: ALL_CAPS for final constants
+  final double PI = 3.14159;
+  final String APP_NAME = "MyApp";
+
+Best Practices for Variables
+  - Use camelCase names: firstName, totalAmount, isActive.
+  - Declare variables close to where they are first used.
+  - Use final for values that should never change - makes code safer.
+  - Give meaningful names - "studentAge" is better than "a" or "x".
+
+
+===============================================================
+5. LITERALS
+===============================================================
+
+A literal is a fixed value written directly in code - the actual
+data, not a variable name. Java supports several literal formats
+for different data types.
+
+// Integer literals
+int decimal = 42;            // base-10 (most common)
+int binary = 0b1010;         // prefix 0b -> equals 10
+int hex = 0xFF;               // prefix 0x -> equals 255
+int octal = 07;               // prefix 0 -> equals 7
+long big = 9876543210L;       // suffix L for long
+
+// Floating-point literals
+float f = 3.14f;              // suffix f required for float
+double d = 3.14;              // double is the default decimal type
+double e = 1.5e10;            // scientific notation: 1.5 x 10^10
+
+// Character literals
+char letter = 'A';            // single character, single quotes
+char newline = '\n';          // escape sequences
+char tab = '\t';
+char unicode = '\u0041';       // Unicode -> 'A'
+
+// String literals
+String greeting = "Hello, World!"; // double quotes
+String empty = "";              // empty string (not null)
+
+// Boolean literals
+boolean yes = true;
+boolean no = false;
+
+// Null literal
+String s = null; // reference points to nothing
+
+
+===============================================================
+6. TYPE CASTING
+===============================================================
+
+Type casting converts a value from one data type to another. Java
+has two kinds:
+
+Widening (Implicit)
+  - Automatic - no data is lost.
+  - Goes from smaller to larger type.
+  - byte -> short -> int -> long -> float -> double
+
+Narrowing (Explicit)
+  - Must write the cast manually.
+  - May lose data (e.g., decimal truncated).
+  - double -> float -> long -> int -> short -> byte
+
+// Widening - automatic, no cast needed
+int i = 50;
+double d = i; // int automatically becomes double -> 50.0
+
+// Narrowing - must use explicit cast with (type)
+double price = 9.99;
+int p = (int) price; // -> 9 (decimal part is DROPPED, not rounded)
+
+// Useful conversions
+String s = String.valueOf(42);      // int -> String
+int n = Integer.parseInt("42");     // String -> int
+double x = Double.parseDouble("3.14");
+char c = (char) 65;                  // int -> char ('A')
+int code = (int) 'A';                // char -> int (65)
+
+
+===============================================================
+7. CONDITIONAL STATEMENTS
+===============================================================
+
+Conditional statements allow your program to make decisions -
+executing different code based on whether a condition is true
+or false.
+
+if / else
+  int marks = 72;
+  if (marks >= 50) {
+      System.out.println("Pass"); // runs when condition is true
+  } else {
+      System.out.println("Fail"); // runs when condition is false
+  }
+
+else-if Chain
+  int score = 85;
+  char grade;
+  if (score >= 90) {
+      grade = 'A';
+  } else if (score >= 75) {
+      grade = 'B'; // <-- this block runs for score = 85
+  } else if (score >= 60) {
+      grade = 'C';
+  } else {
+      grade = 'F'; // default if nothing above matched
+  }
+
+Important
+  - Java checks conditions top to bottom and stops at the FIRST match.
+  - The final "else" is optional but acts as a catch-all safety net.
+
+switch Statement
+  int day = 3;
+
+  // Classic switch
+  switch (day) {
+      case 1: System.out.println("Monday"); break;
+      case 2: System.out.println("Tuesday"); break;
+      case 3: System.out.println("Wednesday"); break; // runs here
+      default: System.out.println("Other"); // if no case matches
+  }
+
+  // Modern switch expression (Java 14+) - cleaner, no fall-through
+  String name = switch (day) {
+      case 1 -> "Monday";
+      case 2 -> "Tuesday";
+      case 3 -> "Wednesday";
+      default -> "Other";
+  };
+
+The break Keyword
+  - Without "break", execution falls through to the NEXT case
+    (usually a bug).
+  - The modern -> arrow syntax automatically prevents fall-through -
+    prefer it.
+  - switch works with int, String, char, byte, short, and enum types.
+
+Ternary Operator ?:
+  // Syntax: condition ? valueIfTrue : valueIfFalse
+  int age = 20;
+  String status = (age >= 18) ? "Adult" : "Minor";
+  // status = "Adult"
+
+  // Equivalent if-else
+  String status2;
+  if (age >= 18) status2 = "Adult";
+  else status2 = "Minor";
+
+  // Nested ternary (use sparingly)
+  int x = 15;
+  String size = (x > 20) ? "big" : (x > 10) ? "medium" : "small";
+
+
+===============================================================
+8. OPERATORS
+===============================================================
+
+Comparison Operators
+  Operator   Meaning                  Example    Result
+  ==         Equal to                 5 == 5     true
+  !=         Not equal to             5 != 3     true
+  >          Greater than             7 > 3      true
+  <          Less than                3 < 7      true
+  >=         Greater than or equal    5 >= 5     true
+  <=         Less than or equal       4 <= 6     true
+
+Logical Operators
+  Operator   Meaning   True when...
+  &&         AND       Both sides are true
+  ||         OR        At least one side is true
+  !          NOT       The condition is false (flips the value)
+
+  int age = 22;
+  boolean hasID = true;
+
+  // AND - both conditions must be true
+  if (age >= 18 && hasID) { System.out.println("Entry allowed"); }
+
+  // OR - at least one condition must be true
+  if (age < 10 || age > 65) { System.out.println("Special ticket"); }
+
+  // NOT - reverses the boolean
+  if (!hasID) { System.out.println("No ID presented"); }
+
+  // Short-circuit: && stops if first part is false
+  // Short-circuit: || stops if first part is true
+
+
+===============================================================
+9. QUICK REFERENCE CHEAT SHEET
+===============================================================
+
+  Concept    Syntax / Example         Notes
+  int        int x = 10;              32-bit integer, most common numeric type
+  double     double d = 3.14;         64-bit decimal, default float type
+  String     String s = "Hi";         Reference type, immutable
+  boolean    boolean b = true;        true or false only
+  char       char c = 'A';            Single character, single quotes
+  final      final int MAX = 100;     Constant - cannot reassign
+  if/else    if (x>0){...}else{...}   Basic branching
+  else-if    else if (x==0){...}      Multiple conditions in sequence
+  switch     switch(x){ case 1:...}   Match one value against many cases
+  ternary    x>0 ? "pos" : "neg"      Short if-else for assignments
+  &&         a && b                    AND - both must be true
+  ||         a || b                    OR - at least one must be true
+  cast       (int) 9.99 -> 9           Explicit narrowing cast
+
+---
+Java Basics Reference Guide · Covers Java SE 8+
